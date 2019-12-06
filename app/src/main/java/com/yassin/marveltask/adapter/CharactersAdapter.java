@@ -24,17 +24,17 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Ch
     private List<Characters> characters;
     private Context context;
 
-    public CharactersAdapter(Context context, List<Characters> characters) {
+    public CharactersAdapter(List<Characters> characters) {
         this.characters = characters;
-        this.context = context;
     }
 
     @NonNull
     @Override
     public CharactersAdapter.CharactersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_items, parent, false);
+        View view = layoutInflater.inflate(R.layout.list_items, parent, false);
 
         return new CharactersViewHolder(view);
     }
@@ -74,11 +74,15 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Ch
     }
 
 
-    //ToDo 13:  Define my click handler
+    //ToDo :  Define my click handler
 //    public class ClickHandlers {
 //        public void onClickMovie(Characters characters) {
 //            MovieDetails.start(context, characters);
 //        }
 //    }
+    public void addItem(List<Characters> characters) {
+        this.characters.addAll(characters);
+        notifyDataSetChanged();
+    }
 }
 

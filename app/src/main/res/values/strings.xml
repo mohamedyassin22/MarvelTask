@@ -4,4 +4,5 @@
     <string name="ts" translatable="false">1</string>
     <string name="hash" translatable="false">a0bcb2158297f102c0ede5f116fe4936</string>
     <string name="overview">Overview</string>
+    <string name="error">Something went wrong</string>
 </resources>

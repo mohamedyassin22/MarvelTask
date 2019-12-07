@@ -5,10 +5,9 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,39 +19,37 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.yassin.marveltask.R;
-import com.yassin.marveltask.activity.DetailsActivity;
-import com.yassin.marveltask.model.Characters;
+import com.yassin.marveltask.model.ComicsItems;
 
 import java.util.List;
 
-
-public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder> {
-
-
-    private List<Characters> characters;
+public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder> {
+    private List<ComicsItems> comics;
     private Context context;
 
-    public CharactersAdapter(List<Characters> characters) {
-        this.characters = characters;
+    public DetailsAdapter(Context context, List<ComicsItems> comics) {
+        this.context = context;
+        this.comics = comics;
+
     }
 
     @NonNull
     @Override
-    public CharactersAdapter.CharactersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DetailsAdapter.DetailsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-        View view = layoutInflater.inflate(R.layout.list_items, parent, false);
+        View view = layoutInflater.inflate(R.layout.details_item, parent, false);
 
-        return new CharactersViewHolder(view);
+        return new DetailsAdapter.DetailsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final CharactersViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final DetailsAdapter.DetailsViewHolder holder, final int position) {
 
 
-        Characters character = characters.get(position);
-        String image_url = character.getPosterPath();
+        ComicsItems comic = comics.get(position);
+        String image_url = comic.getResourceURI() + ".jpg";
         Glide.with(context).load(image_url)
                 .listener(new RequestListener<Drawable>() {
                     @Override
@@ -72,40 +69,38 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Ch
                         return false;
                     }
                 })
-                .into(holder.characterImage);
-        holder.characterTitle.setText(character.getName());
+                .into(holder.detailsImage);
+        holder.detailsTitle.setText(comic.getName());
 
 
-        holder.characterLayout.setOnClickListener(v -> DetailsActivity.start(context, characters.get(holder.getAdapterPosition())));
+//        holder.characterLayout.setOnClickListener(v -> DetailsActivity.start(context, comics.get(holder.getAdapterPosition())));
 
     }
 
     @Override
     public int getItemCount() {
-        return characters.size();
+        return comics.size();
     }
 
-    class CharactersViewHolder extends RecyclerView.ViewHolder {
+    public void addItem(List<ComicsItems> comics) {
+        this.comics.addAll(comics);
+        notifyDataSetChanged();
+    }
 
-        RelativeLayout characterLayout;
-        Button characterTitle;
-        ImageView characterImage;
+    class DetailsViewHolder extends RecyclerView.ViewHolder {
+
+        //        RelativeLayout characterLayout;
+        TextView detailsTitle;
+        ImageView detailsImage;
         ProgressBar progressBar;
 
 
-        public CharactersViewHolder(@NonNull View itemView) {
+        public DetailsViewHolder(@NonNull View itemView) {
             super(itemView);
-            characterLayout = itemView.findViewById(R.id.character_layout);
-            characterTitle = itemView.findViewById(R.id.title);
-            characterImage = itemView.findViewById(R.id.item_character_poster);
+//            characterLayout = itemView.findViewById(R.id.detail_layout);
+            detailsTitle = itemView.findViewById(R.id.title);
+            detailsImage = itemView.findViewById(R.id.item_details_poster);
             progressBar = itemView.findViewById(R.id.progress);
         }
     }
-
-
-    public void addItem(List<Characters> characters) {
-        this.characters.addAll(characters);
-        notifyDataSetChanged();
-    }
 }
-

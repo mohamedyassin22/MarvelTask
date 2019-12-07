@@ -3,6 +3,8 @@
     <string name="api_key" translatable="false">5ffa900afac21b93ffddf914ce05df8c</string>
     <string name="ts" translatable="false">1</string>
     <string name="hash" translatable="false">a0bcb2158297f102c0ede5f116fe4936</string>
-    <string name="overview">Overview</string>
+    <string name="name">NAME</string>
+    <string name="not">Description Not Available</string>
+    <string name="description">DESCRIPTION</string>
     <string name="error">Something went wrong</string>
 </resources>

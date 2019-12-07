@@ -15,6 +15,13 @@ public class Characters implements Serializable {
     private String description;
     @SerializedName("comics")
     private Comics comics;
+    @SerializedName("series")
+    private Comics series;
+    @SerializedName("stories")
+    private Comics stories;
+    @SerializedName("events")
+    private Comics events;
+
     private String posterPath;
 
     public Characters(String name, Thumbnail thumbnail, String description,
@@ -64,5 +71,29 @@ public class Characters implements Serializable {
 
     public void setComics(Comics comics) {
         this.comics = comics;
+    }
+
+    public Comics getSeries() {
+        return series;
+    }
+
+    public void setSeries(Comics series) {
+        this.series = series;
+    }
+
+    public Comics getStories() {
+        return stories;
+    }
+
+    public void setStories(Comics stories) {
+        this.stories = stories;
+    }
+
+    public Comics getEvents() {
+        return events;
+    }
+
+    public void setEvents(Comics events) {
+        this.events = events;
     }
 }

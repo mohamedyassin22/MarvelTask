@@ -3,7 +3,6 @@ package com.yassin.marveltask.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,11 +57,19 @@ public class DetailsActivity extends AppCompatActivity {
             ExpandableList comics = new ExpandableList("COMICS",
                     characters.getComics().getItems());
             expandableLists.add(comics);
+            ExpandableList series = new ExpandableList("SERIES",
+                    characters.getSeries().getItems());
+            expandableLists.add(series);
+            ExpandableList stories = new ExpandableList("STORIES",
+                    characters.getSeries().getItems());
+            expandableLists.add(stories);
+            ExpandableList events = new ExpandableList("EVENT",
+                    characters.getEvents().getItems());
+            expandableLists.add(events);
             listAdapter = new DetailsExpandableListAdapter(mContext,
                     expandableLists);
             listAdapter.notifyDataSetChanged();
             lv.setAdapter(listAdapter);
-            lv.setVisibility(View.VISIBLE);
 
         }
 
